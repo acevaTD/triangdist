@@ -83,13 +83,13 @@ qtriang <- function(p, min, max, mode) {
   if (mode < min || mode > max) {
     stop("mode must be between min and max.")
   }
-  if (p > 1 || p < 0) {
+  if (any(p > 1 | p < 0)) {
     stop("p must be between 0 and 1.")
   }
-  if (p <= (mode - min) / (max - min)) {
+  if (any(p <= (mode - min) / (max - min))) {
     result <- min + sqrt(p * (max - min) * (mode - min))
   }
-  if (p >= (mode - min) / (max - min)) {
+  if (any(p >= (mode - min) / (max - min))) {
     result <- max - sqrt((1 - p) * (max - min) * (max - mode))
   }
   result
@@ -102,4 +102,29 @@ qtriang <- function(p, min, max, mode) {
 #' @param max right limit
 #' @param mode mode
 #' @return Quantile result
+#' @export
+
+rtriang <- function(n, min, max, mode) {
+  if (min > max) {
+    stop("min can't be greater than max.")
+  }
+
+  if (mode < min || mode > max) {
+    stop("mode must be between min and max.")
+  }
+  if (numbers::isNatural(n) != TRUE) {
+    stop("n must be a natural number.")
+  }
+  random_values <- runif(n)
+  result <- qtriang(random_values, min, max, mode)
+  result
+}
+
+#' Random generation.
+#'
+#' @param n natural number. Number of random generations.
+#' @param min left limit
+#' @param max right limit
+#' @param mode mode
+#' @return Random generation of length n
 #' @export

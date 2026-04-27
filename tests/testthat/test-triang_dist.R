@@ -31,3 +31,10 @@ test_that("qtriang tests", {
   expect_true(qtriang(0.8, 0, 1, 0.5) > 0.5)
   expect_error(qtriang(0.5, min = 0, max = 1, mode = 2))
 })
+
+test_that("rtriang tests", {
+  n <- 50
+  samples <- rtriang(n, 0, 1, 0.5)
+  expect_length(samples, n)
+  expect_true(all(samples >= 0 & samples <= 1))
+})
