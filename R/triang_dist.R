@@ -1,7 +1,4 @@
 dtriang <- function(x, min, max, mode) {
-  if (length(x) != 1 & length(x) != 2) {
-    stop("vector must be length 2.")
-  }
 
   if (class(x) != "numeric") {
     stop("x must be a numeric vector or a number.")
@@ -18,6 +15,13 @@ dtriang <- function(x, min, max, mode) {
 
   if (x < min | x > max) {
     resultado <- 0
+    return(resultado)
+  }
+
+  if (x <= mode) {
+    resultado <-  2 * (x - min) / ((max - min) * (mode - min))
+  } else {
+    resultado <- 2 * (max - x) / ((max - min) * (max - mode))
   }
 
   return(resultado)
