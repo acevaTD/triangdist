@@ -4,7 +4,7 @@ dtriang <- function(x, min, max, mode) {
     stop("x must be a numeric vector or a number.")
   }
   if (min > max) {
-    stop("min can't be greater than max")
+    stop("min can't be greater than max.")
   }
 
   if (mode < min || mode > max) {
@@ -39,7 +39,7 @@ ptriang <- function(q, min, max, mode) {
     stop("x must be a numeric vector or a number.")
   }
   if (min > max) {
-    stop("min can't be greater than max")
+    stop("min can't be greater than max.")
   }
 
   if (mode < min || mode > max) {
@@ -62,3 +62,44 @@ ptriang <- function(q, min, max, mode) {
   }
   result
 }
+
+#' Triangular distribution
+#'
+#' @param q numeric vector
+#' @param min left limit
+#' @param max right limit
+#' @param mode mode
+#' @return CDF result
+#' @export
+
+qtriang <- function(p, min, max, mode) {
+  if (class(p) != "numeric") {
+    stop("x must be a numeric vector or a number.")
+  }
+  if (min > max) {
+    stop("min can't be greater than max.")
+  }
+
+  if (mode < min || mode > max) {
+    stop("mode must be between min and max.")
+  }
+  if (p > 1 || p < 0) {
+    stop("p must be between 0 and 1.")
+  }
+  if (p <= (mode - min) / (max - min)) {
+    result <- min + sqrt(p * (max - min) * (mode - min))
+  }
+  if (p >= (mode - min) / (max - min)) {
+    result <- max - sqrt((1 - p) * (max - min) * (max - mode))
+  }
+  result
+}
+
+#' Quantile function
+#'
+#' @param p numeric vector
+#' @param min left limit
+#' @param max right limit
+#' @param mode mode
+#' @return Quantile result
+#' @export
