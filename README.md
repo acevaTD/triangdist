@@ -7,7 +7,7 @@
 * rtriang(n, min, max, mode): Random generation.
 
 ## Installing:
-To install the package, run in the terminal the following command:
+To install the package, run in the console the following command:
 ```
 install.packages("remotes")
 remotes::install_github("aceva/triangdist")
