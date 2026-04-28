@@ -1,6 +1,16 @@
+#' Triangular density
+#'
+#' @param x numeric vector
+#' @param min left limit
+#' @param max right limit
+#' @param mode mode
+#' @return PDF result
+#' @importFrom methods is
+#' @export
+
 dtriang <- function(x, min, max, mode) {
 
-  if (class(x) != "numeric") {
+  if (!is(x, "numeric")) {
     stop("x must be a numeric vector or a number.")
   }
   if (min > max) {
@@ -25,17 +35,18 @@ dtriang <- function(x, min, max, mode) {
   result
 }
 
-#' Triangular density
+#' Triangular distribution
 #'
-#' @param x numeric vector
+#' @param q numeric vector
 #' @param min left limit
 #' @param max right limit
 #' @param mode mode
-#' @return PDF result
+#' @return CDF result
+#' @importFrom methods is
 #' @export
-
+#'
 ptriang <- function(q, min, max, mode) {
-  if (class(q) != "numeric") {
+  if (!is(q, "numeric")) {
     stop("x must be a numeric vector or a number.")
   }
   if (min > max) {
@@ -63,17 +74,18 @@ ptriang <- function(q, min, max, mode) {
   result
 }
 
-#' Triangular distribution
+#' Quantile function
 #'
-#' @param q numeric vector
+#' @param p numeric vector
 #' @param min left limit
 #' @param max right limit
 #' @param mode mode
-#' @return CDF result
+#' @return Quantile result
+#' @importFrom methods is
 #' @export
 
 qtriang <- function(p, min, max, mode) {
-  if (class(p) != "numeric") {
+  if (!is(p, "numeric")) {
     stop("x must be a numeric vector or a number.")
   }
   if (min > max) {
@@ -95,13 +107,14 @@ qtriang <- function(p, min, max, mode) {
   result
 }
 
-#' Quantile function
+#' Random generation.
 #'
-#' @param p numeric vector
+#' @param n natural number. Number of random generations.
 #' @param min left limit
 #' @param max right limit
 #' @param mode mode
-#' @return Quantile result
+#' @return Random generation of length n
+#' @importFrom stats runif
 #' @export
 
 rtriang <- function(n, min, max, mode) {
@@ -112,19 +125,10 @@ rtriang <- function(n, min, max, mode) {
   if (mode < min || mode > max) {
     stop("mode must be between min and max.")
   }
-  if (numbers::isNatural(n) != TRUE) {
+  if (n <= 0 & (ceiling(n) != n)) {
     stop("n must be a natural number.")
   }
   random_values <- runif(n)
   result <- qtriang(random_values, min, max, mode)
   result
 }
-
-#' Random generation.
-#'
-#' @param n natural number. Number of random generations.
-#' @param min left limit
-#' @param max right limit
-#' @param mode mode
-#' @return Random generation of length n
-#' @export
